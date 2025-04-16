@@ -37,6 +37,12 @@
       font-size: 2rem;
       text-shadow: 0 0 10px rgba(0,0,0,0.5);
       animation: fadeInText 3s ease-in-out;
+      opacity: 1;
+      transition: opacity 2s ease;
+    }
+
+    .hidden {
+      opacity: 0;
     }
 
     @keyframes fadeIn {
@@ -57,12 +63,17 @@
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
-  <div class="message">この色を掲げてね 🌈</div>
+  <div class="message" id="message">この色を掲げてね 🌈</div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const color = params.get('color') || '#000000';
     document.getElementById('overlay').style.backgroundColor = color;
+
+    // メッセージを8秒後にフェードアウト
+    setTimeout(() => {
+      document.getElementById('message').classList.add('hidden');
+    }, 8000);
 
     // 明るさロック（対応ブラウザのみ）
     if ('wakeLock' in navigator) {
